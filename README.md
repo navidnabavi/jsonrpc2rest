@@ -77,7 +77,7 @@ JsonRpc2Rest is able to load balance. To perform this you need to define `hosts`
     }
 }
 ```
-hosts contains alias names and their addresses. Every address has to have an unsigned integer as its weight in the value part. As an example in the config above, `myhost` has to address with weights of 2 and 3. It means that the gateway randomly chooses one of the with 40% chance for first endpoint and 60% for second one.
+Hosts contains alias names and their addresses. Every address has to have an unsigned integer as its weight in the value part. As an example in the config above, `myhost` has to address with weights of 2 and 3. It means that the gateway randomly chooses one of the with 40% chance for first endpoint and 60% for second one.
 
 ## Running
-after you compiled the project, you can run it like `./jsonrpc2rest config.json`.
+After you compiled the project, you can run it like `./jsonrpc2rest config.json`.

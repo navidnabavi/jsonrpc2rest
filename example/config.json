@@ -1,0 +1,31 @@
+{
+    "hosts" : {
+        "myhost" : {
+            "127.0.0.1:5000" : 2,
+            "127.0.0.2:5000" : 3
+        },
+        "myhost2" : {
+            "127.0.0.1:5000" : 2,
+            "127.0.0.2:5000" : 1
+        }
+    },
+    "upstreams": {
+        "sum": {
+            "url": "http://myhost/sum/",
+            "params": ["a","b"],
+            "method": "GET"
+        },
+       "prod": {
+            "url": "http://myhost2/prod/",
+            "mehod":"POST",
+            "params": ["a","b"],
+            "payload_params": ["a","b"]
+        },
+        "hello" : {
+            "url": "http://localhost:5000/hello/:name/",
+            "params": ["name"],
+            "method":"GET"
+        }
+    },
+    "bind": "localhost:8000"
+}

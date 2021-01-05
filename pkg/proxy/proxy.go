@@ -1,4 +1,4 @@
-package Proxy
+package proxy
 
 import (
 	"bytes"
@@ -11,6 +11,8 @@ import (
 	"net/http"
 	"net/url"
 	"strings"
+
+	"github.com/navidnabavi/jsonrpc2rest/pkg/configmanager"
 )
 
 //JSONRPCRequest stores Request of JSONRPC to unmarshal
@@ -37,7 +39,7 @@ type JSONRPCResponse struct {
 
 //ProxyManager handles  jsonrpc requests and manipulate data to rest mode
 type ProxyManager struct {
-	config *ConfigManager.Configuration //Configuration from json file
+	config *configmanager.Configuration //Configuration from json file
 	client *http.Client                 //http client to handle requests
 }
 
@@ -79,7 +81,7 @@ func addSlashIfMissed(_url *string) {
 }
 
 //makeRequestParams creates url and payload for request
-func (p *ProxyManager) makeRequestParams(upstream *ConfigManager.Upstream, params []interface{}) (string, map[string]interface{}) {
+func (p *ProxyManager) makeRequestParams(upstream *configmanager.Upstream, params []interface{}) (string, map[string]interface{}) {
 
 	_url := upstream.URL
 	query := "?"
@@ -89,11 +91,11 @@ func (p *ProxyManager) makeRequestParams(upstream *ConfigManager.Upstream, param
 
 	for i, p := range upstream.Params {
 		switch upstream.ParamTypes[i] {
-		case ConfigManager.ParamTypeURL:
+		case configmanager.ParamTypeURL:
 			_url = strings.Replace(_url, ":"+p, fmt.Sprint(params[i]), -1)
-		case ConfigManager.ParamTypePayload:
+		case configmanager.ParamTypePayload:
 			payloadParams[p] = params[i]
-		case ConfigManager.ParamTypeQuery:
+		case configmanager.ParamTypeQuery:
 			urlEncodedValue := url.PathEscape(fmt.Sprintf("%v", params[i]))
 			query += fmt.Sprintf("%s=%s&", p, urlEncodedValue)
 		}
@@ -177,7 +179,7 @@ func (p *ProxyManager) Serve() {
 }
 
 //NewProxy constructs a ProxyManager
-func NewProxy(config *ConfigManager.Configuration) ProxyManager {
+func NewProxy(config *configmanager.Configuration) ProxyManager {
 	return ProxyManager{
 		config: config,
 		client: &http.Client{}}

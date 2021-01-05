@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"os"
 
-	"./config_manager"
-	"./proxy"
+	"github.com/navidnabavi/jsonrpc2rest/pkg/configmanager"
+	"github.com/navidnabavi/jsonrpc2rest/pkg/proxy"
 )
 
 func main() {
@@ -14,8 +14,8 @@ func main() {
 	}
 
 	fmt.Println("Starting Up")
-	config := ConfigManager.LoadConfiguration(os.Args[1])
+	config := configmanager.LoadConfiguration(os.Args[1])
 	fmt.Printf("Listening on %s\n", config.Bind)
-	proxy := Proxy.NewProxy(&config)
+	proxy := proxy.NewProxy(&config)
 	proxy.Serve()
 }

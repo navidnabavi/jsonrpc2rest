@@ -1,4 +1,4 @@
-package ConfigManager
+package configmanager
 
 import (
 	"encoding/json"
@@ -56,7 +56,7 @@ func (u *Upstream) initialCounts() {
 }
 
 //Comment it later
-func (u *Upstream) computeAddtionalConfig() {
+func (u *Upstream) computeAdditionalConfig() {
 	u.ParamTypes = make([]int8, len(u.Params))
 	u.initialCounts()
 
@@ -95,9 +95,8 @@ func LoadConfiguration(filename string) Configuration {
 	check(err)
 
 	for k := range config.Upstreams {
-		config.Upstreams[k].computeAddtionalConfig()
+		config.Upstreams[k].computeAdditionalConfig()
 	}
-	fmt.Println("-----")
-	fmt.Println(config)
+
 	return config
 }

@@ -8,7 +8,6 @@ def sum():
     print("1")
     a = request.args.get("a", "")
     b = request.args.get("b", "")
-    print(a, b)
     a = int(a)
     b = int(b)
     return jsonify({"result": {"sum": a + b, "diff": a - b}})

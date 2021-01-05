@@ -6,10 +6,8 @@ app = Flask(__name__)
 @app.route("/sum/")
 def sum():
     print("1")
-    a = request.args.get("a", "")
-    b = request.args.get("b", "")
-    a = int(a)
-    b = int(b)
+    a = int(request.args.get("a", ""))
+    b = int(request.args.get("b", ""))
     return jsonify({"result": {"sum": a + b, "diff": a - b}})
 
 
